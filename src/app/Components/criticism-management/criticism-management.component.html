@@ -1,0 +1,22 @@
+<md-tab-group>
+  <md-tab label="انتقادات">
+    <md-sidenav-container class="home">
+      <md-sidenav #searchArea class="searchArea" align="start" style="min-width: 250px !important;">
+        <app-search [kind]="'allCriticisms'" (filtering)="filterCriticisms($event)"></app-search>
+      </md-sidenav>
+      <div>
+        <button md-button (click)="searchArea.open()" class="searchButtonArea">
+          <md-icon>filter_list</md-icon>
+        </button>
+        <div style="padding: 10px; margin: 10px;">
+          <md-card class="outerCard">
+            <app-criticism *ngFor="let cr of filteredCriticisms" [criticism]="cr"></app-criticism>
+          </md-card>
+        </div>
+      </div>
+    </md-sidenav-container>
+  </md-tab>
+  <md-tab label="نگارش">
+    <app-compose></app-compose>
+  </md-tab>
+</md-tab-group>

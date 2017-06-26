@@ -1,0 +1,129 @@
+<div>
+  <md-tab-group (selectChange)="changeTab($event)" [selectedIndex]="1">
+    <md-tab label="کاربران">
+      <md-card>
+        <md-card-content>
+          <div>
+            <md-card>
+              <md-card-title>تعریف کاربر</md-card-title>
+              <md-card-content>
+                <form [formGroup]="userForm" (ngSubmit)="addUser()">
+                  <md-input-container>
+                    <input mdInput type="text" placeholder="نام" formControlName="name">
+                  </md-input-container>
+                  <br/>
+                  <md-input-container>
+                    <input mdInput type="text" placeholder="نام کاربری" formControlName="username">
+                  </md-input-container>
+                  <label class="label" style="font-size: 0.7em">حداقل دارای 5 کاراکتر</label>
+                  <br/>
+                  <md-input-container>
+                    <input mdInput type="email" placeholder="ایمیل" formControlName="email">
+                  </md-input-container>
+                  <br/>
+                  <div>
+                    <md-select formControlName="accessLevel" style="direction: rtl; float: right;">
+                      <md-option style="direction: rtl" *ngFor="let item of accessLevels" [value]="item">{{item}}</md-option>
+                    </md-select>
+                  </div>
+                  <br/>
+                  <br/>
+                  <br/>
+                  <div>
+                    <button md-raised-button type="submit" class="title"
+                            [disabled]="!userForm.valid">افزودن</button>
+                  </div>
+                </form>
+              </md-card-content>
+            </md-card>
+          </div>
+          <div style="margin-top: 10px;" *ngIf="users.length > 0">
+            <md-card>
+              <md-card-title>افراد</md-card-title>
+              <md-card-content>
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <td class="title">ردیف</td>
+                      <td class="title">نام</td>
+                      <td class="title">نام کاربری</td>
+                      <td class="title">ایمیل</td>
+                      <td class="title">سطح دسترسی</td>
+                      <td class="title">امتیاز</td>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let user of users; let i = index">
+                      <td class="content">{{i + 1}}</td>
+                      <td class="content">{{user.name}}</td>
+                      <td class="content">{{user.username}}</td>
+                      <td class="content">{{user.email}}</td>
+                      <td class="content">{{user.accessLevel}}</td>
+                      <td class="content">{{user.rank}}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </md-card-content>
+            </md-card>
+          </div>
+        </md-card-content>
+      </md-card>
+    </md-tab>
+    <md-tab label="بخش ها">
+      <md-card>
+        <md-card-content>
+          <div>
+            <md-card>
+              <md-card-title>تعریف بخش</md-card-title>
+              <md-card-content>
+                <form [formGroup]="partForm">
+                  <md-input-container>
+                    <input mdInput type="text" placeholder="نام بخش" formControlName="name">
+                  </md-input-container>
+                  <br/>
+                  <md-select formControlName="responsibleId" placeholder="مسئول پاسخگو">
+                    <md-option *ngFor="let item of responsibleUsers" [value]="item.id">{{item.name}} - {{item.username}}</md-option>
+                  </md-select>
+                  <br/>
+                  <md-input-container>
+                    <input mdInput type="text" placeholder="نام بخش پدر" formControlName="parentName">
+                  </md-input-container>
+                  <br/>
+                  <div>
+                    <button md-raised-button type="submit" [disabled]="!partForm.valid" (click)="addPart()">افزودن</button>
+                  </div>
+                </form>
+              </md-card-content>
+            </md-card>
+          </div>
+          <div style="margin-top: 10px;" *ngIf="parts.length > 0">
+            <md-card>
+              <md-card-title>بخش ها</md-card-title>
+              <md-card-content>
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <td class="title">ردیف</td>
+                      <td class="title">نام</td>
+                      <td class="title">مسئول پاسخگو</td>
+                      <td class="title">بخش پدر</td>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let part of parts; let i = index">
+                      <td class="content">{{i + 1}}</td>
+                      <td class="content">{{part.name}}</td>
+                      <td class="content">{{part.responsibleName}}</td>
+                      <td class="content" *ngIf="part.parentName !== null && part.parentName !== ''">{{part.parentName}}</td>
+                      <td class="content" *ngIf="part.parentName === null || part.parentName === ''">-</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </md-card-content>
+            </md-card>
+          </div>
+        </md-card-content>
+      </md-card>
+    </md-tab>
+  </md-tab-group>
+</div>

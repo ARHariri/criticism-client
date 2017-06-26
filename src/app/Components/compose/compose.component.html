@@ -1,0 +1,35 @@
+<div style="margin: 5px !important;">
+  <div class="flex-container" fxLayout="row" fxLayout.xs="column" fxLayout.sm="column" fxLayoutAlign="center start" fxLayoutAlign.xs="start start" fxLayoutAlign.sm="start start">
+    <div class="flex-item" fxFlex="60" fxFlex.sm="100" fxFlex.xs="100" style="margin: 5px !important; width: 100%;">
+      <md-card class="outerCard">
+        <md-card-title>نگارش انتقاد</md-card-title>
+        <md-card>
+          <md-card-content>
+            <md-input-container style="width: 100%;">
+              <input mdInput class="content" type="text" placeholder="عنوان">
+            </md-input-container>
+          </md-card-content>
+          <md-card-content>
+            <textarea class="content" rows="10" placeholder="محتوا"></textarea>
+          </md-card-content>
+          <md-card-content>
+            <md-input-container style="width: 100%;">
+              <input mdInput type="text" placeholder="برچسب ها: (با '-' برچسب ها را از بکدیگر جدا کنید)"/>
+            </md-input-container>
+          </md-card-content>
+          <md-card-content>
+            <button md-mini-fab style="background-color: rgba(119, 113, 255, 0.63);">
+              <i class="material-icons" style="color: whitesmoke">send</i>
+            </button>
+          </md-card-content>
+        </md-card>
+      </md-card>
+    </div>
+    <div class="flex-item" fxFlex="40" fxFlex.sm="100" fxFlex.xs="100" style="margin: 5px !important; width: 100%;">
+      <md-card class="outerCard">
+        <md-card-title>انتقادهای مشابه</md-card-title>
+        <md-card-content></md-card-content>
+      </md-card>
+    </div>
+  </div>
+</div>

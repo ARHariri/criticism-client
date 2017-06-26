@@ -1,0 +1,53 @@
+<div style="margin: 3px; padding: 10px;">
+  <div style="text-align: center">
+    <label class="title">جست و جو</label>
+  </div>
+  <div>
+    <md-input-container>
+      <input mdInput type="text" class="content" placeholder="عنوان" [(ngModel)]="title" (ngModelChange)="filter()"/>
+    </md-input-container>
+    <button class="trsBtn" (click)="remove('title')">
+      <i class="fa fa-times" aria-hidden="true"></i>
+    </button>
+  </div>
+  <div class="urlContent">
+    <button class="trsBtn" (click)="displayAdvance()">
+      <i class="fa fa-plus" aria-hidden="true" *ngIf="!advanceVisibility"></i>
+      <i class="fa fa-minus" aria-hidden="true" *ngIf="advanceVisibility"></i>
+      پیشرفته
+    </button>
+  </div>
+  <div *ngIf="advanceVisibility">
+    <div>
+      <md-input-container>
+        <input mdInput type="text" class="content" placeholder="برچسب" [(ngModel)]="tags" (ngModelChange)="filter()"/>
+      </md-input-container>
+      <button class="trsBtn" (click)="remove('tags')">
+        <i class="fa fa-times" aria-hidden="true"></i>
+      </button>
+      <label class="urlContent">با '-' برچسب ها را جدا کنید</label>
+    </div>
+    <div>
+      <md-input-container>
+        <input mdInput type="number" class="content" placeholder="امتیاز انتقاد" [(ngModel)]="criticismVote" (ngModelChange)="filter()"/>
+      </md-input-container>
+      <button class="trsBtn" (click)="remove('criticismVote')">
+        <i class="fa fa-times" aria-hidden="true"></i>
+      </button>
+    </div>
+    <div>
+      <md-input-container>
+        <input mdInput type="number" class="content" placeholder="امتیاز پاسخ" [(ngModel)]="replyVote" (ngModelChange)="filter()"/>
+      </md-input-container>
+      <button class="trsBtn" (click)="remove('replyVote')">
+        <i class="fa fa-times" aria-hidden="true"></i>
+      </button>
+    </div>
+  </div>
+  <br/>
+  <div style="float: left">
+    <button class="trsBtn" (click)="remove('all')">
+      <i class="material-icons">delete_sweep</i>
+    </button>
+  </div>
+</div>

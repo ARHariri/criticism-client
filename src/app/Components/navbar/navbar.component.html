@@ -1,0 +1,31 @@
+<nav md-tab-nav-bar style="direction: rtl; background-color: #7671ff">
+  <span *ngIf="authService.isLoggedIn.getValue()">
+    <a class="title link" md-tab-link [mdMenuTriggerFor]="userMenu">
+      <img src="../../../assets/image/user.png" width="40" height="40">
+      {{userName}}
+    </a>
+    <md-menu #userMenu="mdMenu">
+      <a md-menu-item class="title link subLink" style="direction: rtl;" [routerLink]="['profile']">پروفایل</a>
+      <a md-menu-item class="title link subLink" style="direction: rtl;" (click)="logout()">خروج</a>
+    </md-menu>
+  </span>
+  <span *ngIf="!authService.isLoggedIn.getValue()">
+    <a class="title link" md-tab-link (click)="login()">ورود</a>
+  </span>
+  <span>
+    <a class="title link" md-tab-link [routerLink]="['home']">خانه</a>
+  </span>
+  <span *ngIf="authService.isLoggedIn.getValue()">
+    <a class="title link" md-tab-link [routerLink]="['notification']">اطلاع</a>
+  </span>
+  <span>
+    <a class="title link" md-tab-link [routerLink]="['criticism']">انتقادات</a>
+  </span>
+  <span *ngIf="authService.isAdmin">
+    <a class="title link" md-tab-link [routerLink]="['organ']">سازمان</a>
+  </span>
+  <span class="fill-remaining-space"></span>
+  <span style="margin: 10px;">
+    <a class="title link" [routerLink]="['']">سیستم انتقادات</a>
+  </span>
+</nav>

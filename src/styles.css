@@ -1,0 +1,86 @@
+/* You can add global styles to this file, and also import other style files */
+@import '~@angular/material/core/theming/prebuilt/deeppurple-amber.css';
+
+@font-face {
+  font-family: "BYekan";
+  font-style: normal;
+  font-weight: 400;
+  src: url("./assets/font/BYekan.eot?#iefix") format("embedded-opentype"),
+       url("./assets/font/BYekan.woff") format("woff"),
+       url("./assets/font/BYekan.ttf") format("truetype");
+}
+
+.title{
+  font-family: 'BYekan' !important;
+}
+
+.mat-card-title{
+  font-family: 'BYekan' !important;
+}
+
+.content{
+  font-family: 'BYekan' !important;
+  font-weight: normal;
+}
+
+.urlContent{
+  font-family: 'BYekan' !important;
+  font-size: 0.7em;
+}
+
+.label{
+  font-family: 'BYekan' !important;
+  font-weight: normal;
+  font-size: 1.2em;
+  color: black;
+}
+
+.mat-input-container{
+  text-align: right !important;
+}
+
+.mat-input-ripple{
+  /*background-color: white !important;*/
+}
+
+.mat-input-placeholder {
+  font-family: 'BYekan' !important;
+  font-weight: normal !important;
+  float: right !important;
+  /*text-align: right !important;*/
+}
+
+.primaryColor {
+  color: #95a5a6;
+}
+
+.fill-remaining-space {
+  flex: 1 1 auto;
+}
+
+.searchArea{
+  width: 20%;
+}
+
+.trsBtn{
+  background-color: transparent;
+  background-repeat:no-repeat;
+  border: none;
+  cursor:pointer;
+  overflow: hidden;
+  outline:none;
+}
+
+.outerCard{
+  background-color: rgba(119, 113, 255, 0.63);
+}
+
+textarea{
+  resize: none;
+  width: 100% !important;
+  padding-right: 3px !important;
+}
+
+.mat-tab-label{
+  font-family: 'BYekan' !important;
+}
