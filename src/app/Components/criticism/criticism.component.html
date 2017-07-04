@@ -1,6 +1,6 @@
 <md-card style="margin: 3px;">
   <div class="content" style="margin-right: 40px;">
-    {{criticism.title}}
+    {{criticism.subject}}
   </div>
   <div class="flex-container" fxLayout="row" fxLayout.xs="column" fxLayoutAlign="start start" fxLayoutAlign.xs="start start">
     <div class="flex-item" fxFlex="85" fxFlex.xs="85">
@@ -9,30 +9,43 @@
         {{criticism.writerName}}
       </div>
       <div>{{criticism.content}}</div>
-      <div>
+      <div *ngIf="criticism.tags !== null && criticism.tags.length > 0">
         <label class="content">برچسب: </label>
         <label class="urlContent">{{concatTags(criticism.tags)}}</label>
       </div>
     </div>
     <div class="flex-item" fxFlex="15" fxFlex.xs="15">
       <div class="flex-container" fxLayout="column" fxLayout.xs="column" fxLayoutAlign="center center" fxLayoutAlign.xs="center center">
-        <div class="flex-item" fxFlex="33" fxFlex.xs="25">
+        <div class="flex-item" fxFlex="27" fxFlex.xs="25" *ngIf="!isCheckDeadline">
           <button (click)="vote('inc')" class="trsBtn">
             <i class="fa fa-plus" aria-hidden="true" style="color: green;"></i>
           </button>
         </div>
-        <div class="flex-item" fxFlex="33" fxFlex.xs="25">
+        <div class="flex-item" fxFlex="27" fxFlex.xs="25" *ngIf="!isCheckDeadline">
           {{criticism.vote}}
         </div>
-        <div class="flex-item" fxFlex="33" fxFlex.xs="25">
+        <div class="flex-item" fxFlex="27" fxFlex.xs="25" *ngIf="!isCheckDeadline">
           <button (click)="vote('dec')" class="trsBtn">
             <i class="fa fa-minus" aria-hidden="true" style="color: red;"></i>
           </button>
         </div>
-        <div class="flex-item" fxFlex="33" fxFlex.xs="25">
+        <div class="flex-item" fxFlex="19" fxFlex.xs="25" *ngIf="!isCheckDeadline">
           <br/>
           <button class="trsBtn" (click)="displayReply()">
             <i class="fa fa-reply" aria-hidden="true" style="color: #0c08ff"></i>
+          </button>
+        </div>
+        <div class="flex-item" fxFlex="50" fxFlex.xs="33" *ngIf="isCheckDeadline">
+          {{criticism.vote}}
+        </div>
+        <div class="flex-item" fxFlex="25" fxFlex.xs="33" *ngIf="isCheckDeadline">
+          <button (click)="thank(true)" class="trsBtn">
+            <i class="fa fa-thumbs-o-up" aria-hidden="true" style="color: green;"></i>
+          </button>
+        </div>
+        <div class="flex-item" fxFlex="25" fxFlex.xs="33" *ngIf="isCheckDeadline">
+          <button (click)="thank(false)" class="trsBtn">
+            <i class="fa fa-thumbs-o-down" aria-hidden="true" style="color: red;"></i>
           </button>
         </div>
       </div>

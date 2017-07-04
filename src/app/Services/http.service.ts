@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import {Http, Response} from "@angular/http";
 import {Observable} from "rxjs";
-import {parseErrorsFromMarkup} from "tslint/lib/test/parse";
 
 @Injectable()
 export class HttpService {

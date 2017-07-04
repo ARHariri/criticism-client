@@ -11,6 +11,7 @@ import {ReplyComponent} from "../reply/reply.component";
   styleUrls: ['./criticism.component.css']
 })
 export class CriticismComponent implements OnInit {
+  @Input() isCheckDeadline: boolean = false;
   @Input() criticism: CriticismModel;
   @Output() action = new EventEmitter();
 
@@ -53,8 +54,9 @@ export class CriticismComponent implements OnInit {
   }
 
   concatTags(tags: string[]): string{
-    return tags.reduce((acc, el) => {
-      return acc + ' - ' + el;
-    });
+    if(tags !== null)
+      return tags.reduce((acc, el) => {
+        return acc + ' - ' + el;
+      });
   }
 }

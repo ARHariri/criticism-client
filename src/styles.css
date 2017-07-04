@@ -39,6 +39,10 @@
   text-align: right !important;
 }
 
+.mat-input-element{
+  font-family: 'BYekan' !important;
+}
+
 .mat-input-ripple{
   /*background-color: white !important;*/
 }

@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 
 import {CriticismService} from "../../Services/criticism.service";
 import {CriticismModel} from "../../models/criticismModel";
+import {WindowRef} from "../../Services/windowRef";
+import {ActionEnum} from "../../models/actionEnum";
 
 @Component({
   selector: 'app-criticism-management',
@@ -10,10 +12,16 @@ import {CriticismModel} from "../../models/criticismModel";
 })
 export class CriticismManagementComponent implements OnInit {
   filteredCriticisms: CriticismModel[] = [];
+  height: string;
 
-  constructor(private criticismService: CriticismService) { }
+  constructor(private criticismService: CriticismService, private windowRef: WindowRef) { }
 
   ngOnInit() {
+    this.height = this.windowRef.getWindow().innerHeight + "px";
+    this.windowRef.getWindow().onresize = (e) => {
+      this.height = this.windowRef.getWindow().innerHeight + "px";
+    };
+
     this.criticismService.criticisms.subscribe(
         (data) => {
           this.filteredCriticisms = data;
@@ -35,7 +43,7 @@ export class CriticismManagementComponent implements OnInit {
         switch (prop){
           case 'title': {
             this.filteredCriticisms = this.filteredCriticisms.filter((el) => {
-              return el.title.includes(filterOptions[prop]);
+              return el.subject.includes(filterOptions[prop]);
             });
           }
             break;
@@ -59,5 +67,30 @@ export class CriticismManagementComponent implements OnInit {
       }
     }
     // console.log(this.filteredCriticisms);
+  }
+
+  actionHandler(event, id){
+    switch (event.action){
+      case ActionEnum.addVote: {
+        this.criticismService.votingCriticisms(id, 1)
+          .then(res => {
+
+          })
+          .catch(err => {
+            this.criticismService.criticisms.getValue().find(el => el.id === id).vote--;
+          })
+      }
+      break;
+      case ActionEnum.subVote: {
+        this.criticismService.votingCriticisms(id, -1)
+          .then(res => {
+
+          })
+          .catch(err => {
+            this.criticismService.criticisms.getValue().find(el => el.id === id).vote++;
+          });
+      }
+      break;
+    }
   }
 }

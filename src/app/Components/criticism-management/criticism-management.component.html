@@ -1,16 +1,16 @@
 <md-tab-group>
   <md-tab label="انتقادات">
     <md-sidenav-container class="home">
-      <md-sidenav #searchArea class="searchArea" align="start" style="min-width: 250px !important;">
+      <md-sidenav #searchArea class="searchArea" align="start" style="min-width: 250px !important;" [style.height]="height">
         <app-search [kind]="'allCriticisms'" (filtering)="filterCriticisms($event)"></app-search>
       </md-sidenav>
-      <div>
+      <div [style.height]="height">
         <button md-button (click)="searchArea.open()" class="searchButtonArea">
           <md-icon>filter_list</md-icon>
         </button>
         <div style="padding: 10px; margin: 10px;">
           <md-card class="outerCard">
-            <app-criticism *ngFor="let cr of filteredCriticisms" [criticism]="cr"></app-criticism>
+            <app-criticism *ngFor="let cr of filteredCriticisms" [isCheckDeadline]="false" [criticism]="cr" (action)="actionHandler($event, cr.id)"></app-criticism>
           </md-card>
         </div>
       </div>

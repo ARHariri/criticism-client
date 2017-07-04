@@ -4,28 +4,46 @@
       <md-card class="outerCard">
         <md-card-title>نگارش انتقاد</md-card-title>
         <md-card>
-          <md-card-content>
-            <md-input-container style="width: 100%;">
-              <input mdInput class="content" type="text" placeholder="عنوان">
-            </md-input-container>
-          </md-card-content>
-          <md-card-content>
-            <textarea class="content" rows="10" placeholder="محتوا"></textarea>
-          </md-card-content>
-          <md-card-content>
-            <md-input-container style="width: 100%;">
-              <input mdInput type="text" placeholder="برچسب ها: (با '-' برچسب ها را از بکدیگر جدا کنید)"/>
-            </md-input-container>
-          </md-card-content>
-          <md-card-content>
-            <button md-mini-fab style="background-color: rgba(119, 113, 255, 0.63);">
-              <i class="material-icons" style="color: whitesmoke">send</i>
-            </button>
-          </md-card-content>
+          <form [formGroup]="criticismForm" (ngSubmit)="addCriticism()">
+            <div>
+              <md-input-container style="width: 100%;">
+                <input mdInput placeholder="عنوان" [mdAutocomplete]="autoTitle" formControlName="subject" (focus)="showList('subject')">
+              </md-input-container>
+              <md-autocomplete #autoTitle="mdAutocomplete">
+                <md-option *ngFor="let subject of filteredSubjects | async" [value]="subject" style="text-align: right" class="label">
+                  {{ subject }}
+                </md-option>
+              </md-autocomplete>
+            </div>
+            <div>
+              <textarea class="content" rows="10" placeholder="محتوا" formControlName="content"></textarea>
+            </div>
+            <div>
+              <md-input-container style="width: 100%;">
+                <input mdInput type="text" placeholder="برچسب ها: (با '-' برچسب ها را از بکدیگر جدا کنید)" formControlName="tags"/>
+              </md-input-container>
+            </div>
+            <div>
+              <md-input-container style="width: 100%;">
+                <input mdInput placeholder="بخش مورد انتقاد" [mdAutocomplete]="autoPart" formControlName="part" (focus)="showList('part')">
+              </md-input-container>
+              <md-autocomplete #autoPart="mdAutocomplete">
+                <md-option *ngFor="let part of filteredParts | async" [value]="part" style="text-align: right" class="label">
+                  {{ part }}
+                </md-option>
+              </md-autocomplete>
+            </div>
+            <div>
+              <button md-mini-fab style="background-color: rgba(119, 113, 255, 0.63);" type="submit"
+                      [disabled]="!criticismForm.valid">
+                <i class="material-icons" style="color: whitesmoke">send</i>
+              </button>
+            </div>
+          </form>
         </md-card>
       </md-card>
     </div>
-    <div class="flex-item" fxFlex="40" fxFlex.sm="100" fxFlex.xs="100" style="margin: 5px !important; width: 100%;">
+    <div class="flex-item" fxFlex="40" fxFlex.sm="100" fxFlex.xs="100" style="margin: 5px !important; width: 100%;" *ngIf="similarCriticisms.length > 0">
       <md-card class="outerCard">
         <md-card-title>انتقادهای مشابه</md-card-title>
         <md-card-content></md-card-content>

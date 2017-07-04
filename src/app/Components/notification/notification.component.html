@@ -1,3 +1,14 @@
-<p>
-  notification works!
-</p>
+<div>
+  <md-card>
+    <md-card-title>سر رسید مهلت پیگیری انتقاد</md-card-title>
+    <md-card-content>
+      <!--<app-criticism></app-criticism>-->
+    </md-card-content>
+  </md-card>
+  <md-card *ngIf="notReplyCriticisms !== null && notReplyCriticisms.length > 0">
+    <md-card-title>انتقادات بدون پاسخ</md-card-title>
+    <md-card-content>
+
+    </md-card-content>
+  </md-card>
+</div>

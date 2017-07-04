@@ -1,0 +1,26 @@
+<md-card style="margin: 3px;">
+  <md-card-title>{{criticism.subject}}</md-card-title>
+  <md-card-content>
+    <div>
+      <img src="../../../assets/image/user.png" width="40" height="40">
+      {{criticism.writerName}}
+    </div>
+    <div>{{criticism.content}}</div>
+    <div *ngIf="criticism.tags !== null && criticism.tags.length > 0">
+      <label class="content">برچسب: </label>
+      <label class="urlContent">{{concatTags(criticism.tags)}}</label>
+    </div>
+    <form [formGroup]="replyForm" (ngSubmit)="sendReply()">
+      <div>
+        <textarea placeholder="پاسخ شما" formControlName="replyContent"></textarea>
+      </div>
+      <div>
+        <md-input-container>
+          <input mdInput [mdDatepicker]="picker" placeholder="تاریخ مهلت انجام">
+          <button mdSuffix [mdDatepickerToggle]="picker"></button>
+        </md-input-container>
+        <md-datepicker #picker></md-datepicker>
+      </div>
+    </form>
+  </md-card-content>
+</md-card>
