@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
-import { MaterialModule } from "@angular/material";
+import {MaterialModule} from "@angular/material";
 import { RouterModule } from "@angular/router";
 import { FlexLayoutModule } from "@angular/flex-layout";
 import 'hammerjs';
@@ -19,6 +19,7 @@ import { NotificationComponent } from './Components/notification/notification.co
 import { ComposeComponent } from './Components/compose/compose.component';
 import { CriticismComponent } from './Components/criticism/criticism.component';
 import { ReplyComponent } from './Components/reply/reply.component';
+import {ReplyShowComponent} from "./Components/reply-show/reply-show.component";
 
 //Services
 import { AuthService } from './Services/auth.service';
@@ -46,9 +47,10 @@ import {OrganService} from "./Services/organ.service";
     ReplyComponent,
     CriticismManagementComponent,
     UserCardComponent,
+    ReplyShowComponent,
   ],
   entryComponents: [
-    ReplyComponent,
+    ReplyShowComponent,
     LoginComponent,
   ],
   imports: [

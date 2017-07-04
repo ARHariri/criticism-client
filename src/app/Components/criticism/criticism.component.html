@@ -4,13 +4,17 @@
   </div>
   <div class="flex-container" fxLayout="row" fxLayout.xs="column" fxLayoutAlign="start start" fxLayoutAlign.xs="start start">
     <div class="flex-item" fxFlex="85" fxFlex.xs="85">
-      <div>
+      <div class="content">
         <img src="../../../assets/image/user.png" width="40" height="40">
         {{criticism.writerName}}
       </div>
-      <div>{{criticism.content}}</div>
+      <br/>
+      <hr/>
+      <div class="content">{{criticism.content}}</div>
       <div *ngIf="criticism.tags !== null && criticism.tags.length > 0">
-        <label class="content">برچسب: </label>
+        <label class="content">
+          <i class="fa fa-tag" aria-hidden="true"></i>
+        </label>
         <label class="urlContent">{{concatTags(criticism.tags)}}</label>
       </div>
     </div>

@@ -1,25 +1,44 @@
-<md-card style="margin: 3px;">
+<md-card style="margin-top: 3px; margin-bottom: 10px;">
   <md-card-title>{{criticism.subject}}</md-card-title>
   <md-card-content>
-    <div>
-      <img src="../../../assets/image/user.png" width="40" height="40">
-      {{criticism.writerName}}
+    <div class="content">
+      <div>نوشته شده توسط:</div>
+      <div style="text-indent: 5px;">{{criticism.writerName}}</div>
     </div>
-    <div>{{criticism.content}}</div>
+    <div class="content">
+      <div>متن انتقاد:</div>
+      <div style="text-indent: 5px;">{{criticism.content}}</div>
+    </div>
     <div *ngIf="criticism.tags !== null && criticism.tags.length > 0">
-      <label class="content">برچسب: </label>
+      <label class="content">
+        <i class="fa fa-tag" aria-hidden="true"></i>
+      </label>
       <label class="urlContent">{{concatTags(criticism.tags)}}</label>
     </div>
     <form [formGroup]="replyForm" (ngSubmit)="sendReply()">
       <div>
-        <textarea placeholder="پاسخ شما" formControlName="replyContent"></textarea>
+        <textarea class="content" placeholder="پاسخ شما" formControlName="replyContent"
+                  rows="10"></textarea>
       </div>
+      <br/>
+      <br/>
       <div>
-        <md-input-container>
-          <input mdInput [mdDatepicker]="picker" placeholder="تاریخ مهلت انجام">
-          <button mdSuffix [mdDatepickerToggle]="picker"></button>
-        </md-input-container>
-        <md-datepicker #picker></md-datepicker>
+        <label class="label">تاریخ مهلت اجرا</label>
+        <md-select placeholder="سال" formControlName="deadline_year">
+          <md-option *ngFor="let year of years" [value]="year">{{year}}</md-option>
+        </md-select>
+        <md-select placeholder="ماه" formControlName="deadline_month">
+          <md-option *ngFor="let month of months" [value]="month">{{month}}</md-option>
+        </md-select>
+        <md-select placeholder="روز" formControlName="deadline_day">
+          <md-option *ngFor="let day of days" [value]="day">{{day}}</md-option>
+        </md-select>
+      </div>
+      <div style="text-align: left;">
+        <button md-raised-button type="submit" style="background-color: #6e84db"
+                [disabled]="!replyForm.valid">
+          <i class="fa fa-reply" aria-hidden="true"></i>
+        </button>
       </div>
     </form>
   </md-card-content>

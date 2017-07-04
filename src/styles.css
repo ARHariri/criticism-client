@@ -25,7 +25,7 @@
 
 .urlContent{
   font-family: 'BYekan' !important;
-  font-size: 0.7em;
+  font-size: 0.9em;
 }
 
 .label{
@@ -87,4 +87,42 @@ textarea{
 
 .mat-tab-label{
   font-family: 'BYekan' !important;
+}
+
+.mat-select-placeholder{
+  font-family: 'BYekan' !important;
+}
+
+.mat-option{
+  font-family: 'BYekan' !important;
+}
+
+.mat-select-value{
+  right: 0px !important;
+}
+
+.mat-option{
+  text-align: end !important;
+}
+
+.mat-select-value-text{
+  font-family: 'BYekan' !important;
+  font-size: 1.1em !important;
+}
+
+.normal-message{
+  font-family: 'BYekan' !important;
+  font-size: 0.8em !important;
+}
+
+.warn-message{
+  font-family: 'BYekan' !important;
+  font-size: 0.8em !important;
+  background-color: yellow !important;
+}
+
+.error-message{
+  font-family: 'BYekan' !important;
+  font-size: 0.8em !important;
+  background-color: red !important;
 }

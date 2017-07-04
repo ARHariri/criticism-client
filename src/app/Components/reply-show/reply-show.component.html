@@ -1,0 +1,55 @@
+<div style="align-content: end; height: 20px; width: 20px;" (click)="dialogRef.close()">
+  <i class="fa fa-window-close-o" aria-hidden="true"></i>
+</div>
+<md-card style="margin: 3px; direction: rtl">
+  <div *ngIf="!loading && (reply !== null && reply !== undefined)">
+    <div class="content" style="margin-right: 40px;">
+      {{reply.subject}}
+    </div>
+    <div class="flex-container" fxLayout="row" fxLayout.xs="column" fxLayoutAlign="start start" fxLayoutAlign.xs="start start">
+      <div class="flex-item" fxFlex="85" fxFlex.xs="85">
+        <div class="content">
+          <img src="../../../assets/image/user.png" width="40" height="40">
+          {{reply.creator_name}}
+        </div>
+        <br/>
+        <hr/>
+        <div class="content" style="text-indent: 7px;">{{reply.content}}</div>
+        <div>
+          <label class="label">زمان تأیید اجرا:</label>
+          <label class="content">{{reply.deadline}}</label>
+        </div>
+      </div>
+      <div class="flex-item" fxFlex="15" fxFlex.xs="15">
+        <div class="flex-container" fxLayout="column" fxLayout.xs="column" fxLayoutAlign="center center" fxLayoutAlign.xs="center center">
+          <div class="flex-item" fxFlex="27" fxFlex.xs="25">
+            <button (click)="vote('inc')" class="trsBtn">
+              <i class="fa fa-plus" aria-hidden="true" style="color: green;"></i>
+            </button>
+          </div>
+          <div class="flex-item" fxFlex="27" fxFlex.xs="25">
+            {{reply.vote}}
+          </div>
+          <div class="flex-item" fxFlex="27" fxFlex.xs="25">
+            <button (click)="vote('dec')" class="trsBtn">
+              <i class="fa fa-minus" aria-hidden="true" style="color: red;"></i>
+            </button>
+          </div>
+          <div class="flex-item" fxFlex="19" fxFlex.xs="25" *ngIf="reply.thank_number !== null && reply.thank_number !== undefined">
+            <i class="fa fa-thumbs-o-up" aria-hidden="true" style="color: green;"></i>
+            {{reply.thank_number}}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="!loading && (reply === null || reply === undefined)">
+    <div style="align-content: center">
+      <label class="label">در حال حاضر هیچ پاسخی برای این انتقاد وجود ندارد</label>
+    </div>
+  </div>
+  <div *ngIf="loading">
+    <i class="fa fa-spinner" aria-hidden="true"></i>
+    <label class="label">لطفا صبر کنید در حال دریافت پاسخ هستیم</label>
+  </div>
+</md-card>

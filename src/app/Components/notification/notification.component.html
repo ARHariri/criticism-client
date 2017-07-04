@@ -1,14 +1,28 @@
-<div>
-  <md-card>
-    <md-card-title>سر رسید مهلت پیگیری انتقاد</md-card-title>
-    <md-card-content>
-      <!--<app-criticism></app-criticism>-->
-    </md-card-content>
-  </md-card>
-  <md-card *ngIf="notReplyCriticisms !== null && notReplyCriticisms.length > 0">
-    <md-card-title>انتقادات بدون پاسخ</md-card-title>
-    <md-card-content>
-
-    </md-card-content>
-  </md-card>
+<div style="padding: 5px;">
+  <md-tab-group>
+    <md-tab label="سر رسید مهلت پیگیری انتقاد">
+      <md-card class="outerCard">
+        <md-card-content>
+          <div *ngIf="deadlineCriticisms !== null && deadlineCriticisms.length > 0">
+            <!--<app-criticism></app-criticism>-->
+          </div>
+          <div class="content" style="text-align: center; color: darkred;" *ngIf="deadlineCriticisms === null || deadlineCriticisms.length <= 0">
+            در حال حاضر هیچ انتقادی مهلت تأیید اجرا شدن فرا نرسیده است
+          </div>
+        </md-card-content>
+      </md-card>
+    </md-tab>
+    <md-tab label="انتقادات بدون پاسخ">
+      <md-card class="outerCard">
+        <md-card-content>
+          <div *ngIf="notReplyCriticisms !== null && notReplyCriticisms.length > 0">
+            <app-reply *ngFor="let cr of notReplyCriticisms" [isReplying]="true" [criticism]="cr" (action)="actionHandler($event)"></app-reply>
+          </div>
+          <div class="content" style="text-align: center; color: darkred;" *ngIf="notReplyCriticisms === null || notReplyCriticisms.length <= 0">
+            در حال حاضر هیچ انتقادی به بخش شما وارد نشده است
+          </div>
+        </md-card-content>
+      </md-card>
+    </md-tab>
+  </md-tab-group>
 </div>

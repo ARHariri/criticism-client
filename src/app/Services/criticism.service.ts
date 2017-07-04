@@ -22,7 +22,7 @@ export class CriticismService {
 
           value.id = item.cid;
           value.subject = item.subject;
-          value.writerName = item.writerName;
+          value.writerName = item.creator_name;
           // value.writerImage = item.writerImage;
           value.tags = (item.tags === null) ? null : this.separateTags(item.tags);
           value.content = item.content;
@@ -103,9 +103,44 @@ export class CriticismService {
     });
   }
 
+  addReply(data){
+    return new Promise((resolve, reject) => {
+      this.httpService.insert('reply', data).subscribe(
+        (res) => resolve(res),
+        (err) => reject(err)
+      );
+    })
+  }
+
+  getReply(criticism_id){
+    return new Promise((resolve, reject) => {
+      this.httpService.get('reply/' + criticism_id).subscribe(
+        (data) => {
+          resolve(data);
+        },
+        (err) => {
+          reject(err);
+        }
+      )
+    })
+  }
+
   votingCriticisms(cid, vote){
     return new Promise((resolve, reject) => {
       this.httpService.update('criticism/vote', cid, {value: vote}).subscribe(
+        (data) => {
+          resolve();
+        },
+        (err) => {
+          reject();
+        }
+      );
+    })
+  }
+
+  votingReply(rid, vote){
+    return new Promise((resolve, reject) => {
+      this.httpService.update('reply/vote', rid, {value: vote}).subscribe(
         (data) => {
           resolve();
         },

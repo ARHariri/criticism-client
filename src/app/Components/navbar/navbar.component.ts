@@ -15,8 +15,10 @@ export class NavbarComponent implements OnInit {
   constructor(public authService: AuthService, public dialog: MdDialog) { }
 
   ngOnInit() {
-    this.userName = this.authService.name;
-    console.log(this.userName);
+    this.authService.name.subscribe(
+      (data) => this.userName = data,
+      (err) => console.log(err)
+    );
   }
 
   login(){

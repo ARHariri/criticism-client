@@ -3,7 +3,7 @@ import {MdDialog} from "@angular/material";
 
 import {ActionEnum} from "../../models/actionEnum";
 import {CriticismModel} from "../../models/criticismModel";
-import {ReplyComponent} from "../reply/reply.component";
+import {ReplyShowComponent} from "../reply-show/reply-show.component";
 
 @Component({
   selector: 'app-criticism',
@@ -37,9 +37,12 @@ export class CriticismComponent implements OnInit {
 
   displayReply(){
     console.log('displayReply');
-    let dialogRef = this.dialog.open(ReplyComponent, {
+    let dialogRef = this.dialog.open(ReplyShowComponent, {
       height: '600px',
-      width: '800px'
+      width: '800px',
+      data: {
+        criticism_id: this.criticism.id
+      }
     });
   }
 

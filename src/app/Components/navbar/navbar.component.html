@@ -21,7 +21,7 @@
   <span>
     <a class="title link" md-tab-link [routerLink]="['criticism']">انتقادات</a>
   </span>
-  <span *ngIf="authService.isAdmin">
+  <span *ngIf="authService.access_level.getValue() === 'مدیر'">
     <a class="title link" md-tab-link [routerLink]="['organ']">سازمان</a>
   </span>
   <span class="fill-remaining-space"></span>
