@@ -22,7 +22,7 @@ export class HomeComponent implements OnInit {
           for(let item of res){
             let tempUserModel = new UserModel();
 
-            tempUserModel.id = item.id;
+            tempUserModel.id = item.uid;
             tempUserModel.image = item.image;
             tempUserModel.name = item.name;
             tempUserModel.rank = item.rank;

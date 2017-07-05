@@ -1,45 +1,93 @@
 <md-card style="margin-top: 3px; margin-bottom: 10px;">
-  <md-card-title>{{criticism.subject}}</md-card-title>
+  <md-card-title *ngIf="isReplying">{{criticism.subject}}</md-card-title>
+  <md-card-title *ngIf="!isReplying">{{reply.criticism_subject}}</md-card-title>
   <md-card-content>
-    <div class="content">
-      <div>نوشته شده توسط:</div>
-      <div style="text-indent: 5px;">{{criticism.writerName}}</div>
-    </div>
-    <div class="content">
-      <div>متن انتقاد:</div>
-      <div style="text-indent: 5px;">{{criticism.content}}</div>
-    </div>
-    <div *ngIf="criticism.tags !== null && criticism.tags.length > 0">
-      <label class="content">
-        <i class="fa fa-tag" aria-hidden="true"></i>
-      </label>
-      <label class="urlContent">{{concatTags(criticism.tags)}}</label>
-    </div>
-    <form [formGroup]="replyForm" (ngSubmit)="sendReply()">
-      <div>
+    <div *ngIf="isReplying">
+      <div class="content">
+        <div>نوشته شده توسط:</div>
+        <div style="text-indent: 5px;">{{criticism.writerName}}</div>
+      </div>
+      <div class="content">
+        <div>متن انتقاد:</div>
+        <div style="text-indent: 5px;">{{criticism.content}}</div>
+      </div>
+      <div *ngIf="criticism.tags !== null && criticism.tags.length > 0">
+        <label class="content">
+          <i class="fa fa-tag" aria-hidden="true"></i>
+        </label>
+        <label class="urlContent">{{concatTags(criticism.tags)}}</label>
+      </div>
+      <form [formGroup]="replyForm" (ngSubmit)="sendReply()">
+        <div>
         <textarea class="content" placeholder="پاسخ شما" formControlName="replyContent"
                   rows="10"></textarea>
+        </div>
+        <br/>
+        <br/>
+        <div>
+          <label class="label">تاریخ مهلت اجرا</label>
+          <md-select placeholder="سال" formControlName="deadline_year">
+            <md-option *ngFor="let year of years" [value]="year">{{year}}</md-option>
+          </md-select>
+          <md-select placeholder="ماه" formControlName="deadline_month">
+            <md-option *ngFor="let month of months" [value]="month">{{month}}</md-option>
+          </md-select>
+          <md-select placeholder="روز" formControlName="deadline_day">
+            <md-option *ngFor="let day of days" [value]="day">{{day}}</md-option>
+          </md-select>
+        </div>
+        <div style="text-align: left;">
+          <button md-raised-button type="submit" style="background-color: #6e84db"
+                  [disabled]="!replyForm.valid">
+            <i class="fa fa-reply" aria-hidden="true"></i>
+          </button>
+        </div>
+      </form>
+    </div>
+    <div *ngIf="!isReplying">
+      <div class="flex-container" fxLayout="row" fxLayout.xs="column" fxLayoutAlign="start start" fxLayoutAlign.xs="start start">
+        <div class="flex-item" fxFlex="85" fxFlex.xs="85">
+          <div class="content">
+            <img src="../../../assets/image/user.png" width="40" height="40">
+            نوشته شده توسط: {{reply.replier_name}}
+          </div>
+          <br/>
+          <hr/>
+          <div>
+            <label class="label">انتقاد:   </label>
+            <label class="content">{{reply.criticism_content}}</label>
+          </div>
+          <div *ngIf="reply.criticism_tags !== null && reply.criticism_tags.length > 0">
+            <i class="fa fa-tags" aria-hidden="true"></i>
+            <label class="urlContent">{{concatTags(reply.criticism_tags)}}</label>
+          </div>
+          <hr/>
+          <div>
+            <label class="label">پاسخ:   </label>
+            <label class="content">{{reply.content}}</label>
+          </div>
+        </div>
+        <div class="flex-item" fxFlex="15" fxFlex.xs="15">
+          <div class="flex-container" fxLayout="column" fxLayout.xs="column" fxLayoutAlign="center center" fxLayoutAlign.xs="center center">
+            <div class="flex-item" fxFlex="25" fxFlex.xs="25">
+              <label class="label">سپاس از انجام</label>
+            </div>
+            <div class="flex-item" fxFlex="25" fxFlex.xs="25">
+              <button (click)="thank(true)" class="trsBtn">
+                <i class="fa fa-thumbs-o-up" aria-hidden="true" style="color: green;"></i>
+              </button>
+            </div>
+            <div class="flex-item" fxFlex="25" fxFlex.xs="25">
+              {{reply.thank_number}}
+            </div>
+            <div class="flex-item" fxFlex="25" fxFlex.xs="25">
+              <button (click)="thank(false)" class="trsBtn">
+                <i class="fa fa-thumbs-o-down" aria-hidden="true" style="color: red;"></i>
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
-      <br/>
-      <br/>
-      <div>
-        <label class="label">تاریخ مهلت اجرا</label>
-        <md-select placeholder="سال" formControlName="deadline_year">
-          <md-option *ngFor="let year of years" [value]="year">{{year}}</md-option>
-        </md-select>
-        <md-select placeholder="ماه" formControlName="deadline_month">
-          <md-option *ngFor="let month of months" [value]="month">{{month}}</md-option>
-        </md-select>
-        <md-select placeholder="روز" formControlName="deadline_day">
-          <md-option *ngFor="let day of days" [value]="day">{{day}}</md-option>
-        </md-select>
-      </div>
-      <div style="text-align: left;">
-        <button md-raised-button type="submit" style="background-color: #6e84db"
-                [disabled]="!replyForm.valid">
-          <i class="fa fa-reply" aria-hidden="true"></i>
-        </button>
-      </div>
-    </form>
+    </div>
   </md-card-content>
 </md-card>

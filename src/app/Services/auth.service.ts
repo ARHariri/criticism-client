@@ -60,6 +60,7 @@ export class AuthService implements CanActivate{
     this.userName.next('');
     this.access_level.next('عادی');
     this.isLoggedIn.next(false);
+    this.router.navigate(['home']);
     this.cookieService.delete('token');
     this.cookieService.delete('criticism_username');
   }

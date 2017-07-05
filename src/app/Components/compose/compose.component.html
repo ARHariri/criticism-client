@@ -16,7 +16,7 @@
               </md-autocomplete>
             </div>
             <div>
-              <textarea class="content" rows="10" placeholder="محتوا" formControlName="content"></textarea>
+              <textarea class="content" rows="10" placeholder="محتوا" formControlName="content" (change)="getSimilarCriticisms()"></textarea>
             </div>
             <div>
               <md-input-container style="width: 100%;">
@@ -33,20 +33,27 @@
                 </md-option>
               </md-autocomplete>
             </div>
-            <div>
+            <div style="text-align: left;">
               <button md-mini-fab style="background-color: rgba(119, 113, 255, 0.63);" type="submit"
                       [disabled]="!criticismForm.valid">
-                <i class="material-icons" style="color: whitesmoke">send</i>
+                <i class="fa fa-arrow-left" aria-hidden="true"></i>
               </button>
             </div>
           </form>
         </md-card>
       </md-card>
     </div>
-    <div class="flex-item" fxFlex="40" fxFlex.sm="100" fxFlex.xs="100" style="margin: 5px !important; width: 100%;" *ngIf="similarCriticisms.length > 0">
+    <div class="flex-item" fxFlex="40" fxFlex.sm="100" fxFlex.xs="100" style="margin: 5px !important; width: 100%;">
       <md-card class="outerCard">
         <md-card-title>انتقادهای مشابه</md-card-title>
-        <md-card-content></md-card-content>
+        <md-card-content>
+          <div *ngIf="similarCriticisms === null || similarCriticisms.length === 0">
+            <div class="content">هیچ انتقاد مشابهی یافت نشد</div>
+          </div>
+          <div *ngIf="similarCriticisms !== null && similarCriticisms.length > 0">
+            <app-criticism *ngFor="let cr of similarCriticisms" [canEdit]="false" [criticism]="cr" (action)="actionHandler($event, cr.id)"></app-criticism>
+          </div>
+        </md-card-content>
       </md-card>
     </div>
   </div>

@@ -3,6 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import {CriticismService} from "../../Services/criticism.service";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {OrganService} from "../../Services/organ.service";
+import {CriticismModel} from "../../models/criticismModel";
+import {ActionEnum} from "../../models/actionEnum";
 
 @Component({
   selector: 'app-compose',
@@ -15,7 +17,11 @@ export class ComposeComponent implements OnInit {
   filteredSubjects: any;
   filteredParts: any;
   criticismForm: FormGroup;
-  similarCriticisms: any = [];
+  similarCriticisms: CriticismModel[] = [];
+  similarTemp: CriticismModel[] = [];
+  contentWordExtracted: any[] = [];
+  ignoredWord: any = ['با', 'از', 'است', 'می باشد', 'میباشد', 'شد', 'شاید', 'باید', 'هست', 'نیست', 'و',
+                      'اگر', 'طور', 'این', 'اینطور', 'به', 'برای', 'همین', 'تا', 'کجا'];
 
   constructor(private criticismService: CriticismService, private organService: OrganService) { }
 
@@ -46,6 +52,23 @@ export class ComposeComponent implements OnInit {
       });
 
     this.criticismService.getSubjects();
+
+    this.criticismService.criticisms.subscribe(
+      (data) => {
+        this.contentWordExtracted = [];
+        this.similarTemp = data;
+
+        for(let item of data){
+          this.contentWordExtracted.push({
+            id: item.id,
+            value: item.content.split(' ').filter(el => !this.ignoredWord.includes(el))
+          });
+        }
+      },
+      (err) => console.log(err)
+    );
+
+    this.criticismService.getAllCriticisms('all');
   }
 
   filteringList(val: string, controlName: string){
@@ -89,5 +112,58 @@ export class ComposeComponent implements OnInit {
       .catch((err) => {
         console.log(err);
       })
+  }
+
+  getSimilarCriticisms(){
+    this.similarCriticisms = [];
+    let temp = (this.criticismForm.controls['content'].value === null) ? null : this.criticismForm.controls['content'].value.split(' ');
+    let similarPercent: any = [];
+    if(temp === null)
+      return;
+
+    for(let item of this.contentWordExtracted){
+      similarPercent.push({
+        id: item.id,
+        value: item.value.filter(el => temp.includes(el)).length
+      });
+    }
+
+    similarPercent = similarPercent.sort((a, b) => {
+      if(a.value > b.value)
+        return 1;
+      else if(a.value < b.value)
+        return -1;
+      else
+        return 0;
+    }).slice(0, 11).filter(el => el.value !== 0);
+
+    similarPercent.forEach(el => {
+      this.similarCriticisms.push(this.similarTemp.find(i => i.id === el.id));
+    });
+  }
+
+  actionHandler(event, id){
+    switch (event.action){
+      case ActionEnum.addVote: {
+        this.criticismService.votingCriticisms(id, 1)
+          .then(res => {
+
+          })
+          .catch(err => {
+            this.criticismService.criticisms.getValue().find(el => el.id === id).vote--;
+          })
+      }
+        break;
+      case ActionEnum.subVote: {
+        this.criticismService.votingCriticisms(id, -1)
+          .then(res => {
+
+          })
+          .catch(err => {
+            this.criticismService.criticisms.getValue().find(el => el.id === id).vote++;
+          });
+      }
+        break;
+    }
   }
 }

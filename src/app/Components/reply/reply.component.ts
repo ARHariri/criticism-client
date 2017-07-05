@@ -5,6 +5,7 @@ import * as moment from 'jalali-moment';
 
 import {CriticismModel} from "../../models/criticismModel";
 import {MessageService} from "../../Services/message.service";
+import {ReplyModel} from "../../models/replyModel";
 
 @Component({
   selector: 'app-reply',
@@ -13,6 +14,7 @@ import {MessageService} from "../../Services/message.service";
 })
 export class ReplyComponent implements OnInit {
   @Input() isReplying: boolean = false;
+  @Input() reply: ReplyModel;
   @Input() criticism: CriticismModel;
   @Output() action = new EventEmitter();
   replyForm: FormGroup;
@@ -89,5 +91,19 @@ export class ReplyComponent implements OnInit {
 
   changeDate(){
 
+  }
+
+  thank(value: boolean){
+    this.reply.thank_number += (value) ? 1 : -1;
+
+    let obj = {
+      kind: 'thank',
+      data: {
+        value: (value) ? 1 : -1,
+        rid: this.reply.id
+      }
+    };
+
+    this.action.emit(obj);
   }
 }

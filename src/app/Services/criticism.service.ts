@@ -12,8 +12,18 @@ export class CriticismService {
   constructor(private httpService: HttpService) {
   }
 
-  getAllCriticisms() {
-    this.httpService.get('criticism').subscribe(
+  getAllCriticisms(kind = 'all') {
+    let address = 'criticism';
+    switch (kind){
+      case 'all': {}
+        break;
+      case 'top': address += '/best';
+        break;
+      case 'user': address += '/user';
+        break;
+    }
+
+    this.httpService.get(address).subscribe(
       (data) => {
         let tempCriticisms = [];
 
@@ -26,6 +36,8 @@ export class CriticismService {
           // value.writerImage = item.writerImage;
           value.tags = (item.tags === null) ? null : this.separateTags(item.tags);
           value.content = item.content;
+          value.isBackward = item.is_backward;
+          value.backwardReason = item.backward_reason;
           value.vote = item.rank;
 
           tempCriticisms.push(value);
@@ -149,5 +161,39 @@ export class CriticismService {
         }
       );
     })
+  }
+
+  thankReply(rid, value){
+    return new Promise((resolve, reject) => {
+      this.httpService.update('reply/thank', rid, {value: value}).subscribe(
+        (data) => {
+          resolve();
+        },
+        (err) => {
+          reject();
+        }
+      );
+    })
+  }
+
+  backWardCriticism(value, criticism_id): any{
+    return new Promise((resolve, reject) => {
+      this.httpService.update('/criticism/backward', criticism_id, value).subscribe(
+        (data) => {
+          resolve(data);
+        },
+        (err) => {
+          let tempList = this.criticisms.getValue();
+
+          tempList.find(el => el.id === criticism_id).isBackward = !value.is_backward;
+          tempList.find(el => el.id === criticism_id).backwardReason = (value.is_backward) ? null : value.backward_reason;
+
+          this.criticisms.next(tempList);
+
+          reject(err);
+        }
+      )
+    });
+
   }
 }

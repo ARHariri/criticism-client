@@ -4,4 +4,5 @@
 export enum ActionEnum{
   addVote = 0,
   subVote = 1,
+  backward = 2,
 }

@@ -11,10 +11,16 @@ import {LoginComponent} from "../login/login.component";
 })
 export class NavbarComponent implements OnInit {
   userName: string = '';
+  isLoggedIn: boolean = false;
 
   constructor(public authService: AuthService, public dialog: MdDialog) { }
 
   ngOnInit() {
+    this.authService.isLoggedIn.subscribe(
+      (data) => this.isLoggedIn = data,
+      (err) => console.log(err)
+    );
+
     this.authService.name.subscribe(
       (data) => this.userName = data,
       (err) => console.log(err)

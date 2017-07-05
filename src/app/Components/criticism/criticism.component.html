@@ -1,4 +1,4 @@
-<md-card style="margin: 3px;">
+<md-card style="margin: 3px;" [class.is-backward]="criticism.isBackward">
   <div class="content" style="margin-right: 40px;">
     {{criticism.subject}}
   </div>
@@ -13,44 +13,50 @@
       <div class="content">{{criticism.content}}</div>
       <div *ngIf="criticism.tags !== null && criticism.tags.length > 0">
         <label class="content">
-          <i class="fa fa-tag" aria-hidden="true"></i>
+          <i class="fa fa-tags" aria-hidden="true"></i>
         </label>
         <label class="urlContent">{{concatTags(criticism.tags)}}</label>
+      </div>
+      <hr/>
+      <div *ngIf="criticism.isBackward && !canEdit">
+        <label class="label">دلیل عقبگرد</label>
+        <div class="content">{{criticism.backwardReason}}</div>
+      </div>
+      <div *ngIf="criticism.isBackward && canEdit">
+        <div>
+          <textarea rows="10" [(ngModel)]="criticism.backwardReason" class="content" placeholder="دلیل عقبگرد.."></textarea>
+        </div>
+        <div style="text-align: left">
+          <button md-mini-fab style="background-color: rgba(119, 113, 255, 0.63);" (click)="sendBackward()"
+                  [disabled]="criticism.isBackward && (criticism.backwardReason === null || criticism.backwardReason === '')">
+            <i class="fa fa-arrow-left" aria-hidden="true"></i>
+          </button>
+        </div>
       </div>
     </div>
     <div class="flex-item" fxFlex="15" fxFlex.xs="15">
       <div class="flex-container" fxLayout="column" fxLayout.xs="column" fxLayoutAlign="center center" fxLayoutAlign.xs="center center">
-        <div class="flex-item" fxFlex="27" fxFlex.xs="25" *ngIf="!isCheckDeadline">
+        <div class="flex-item" fxFlex="27" fxFlex.xs="25" *ngIf="!canEdit">
           <button (click)="vote('inc')" class="trsBtn">
             <i class="fa fa-plus" aria-hidden="true" style="color: green;"></i>
           </button>
         </div>
-        <div class="flex-item" fxFlex="27" fxFlex.xs="25" *ngIf="!isCheckDeadline">
+        <div class="flex-item" fxFlex="27" fxFlex.xs="25" *ngIf="!canEdit">
           {{criticism.vote}}
         </div>
-        <div class="flex-item" fxFlex="27" fxFlex.xs="25" *ngIf="!isCheckDeadline">
+        <div class="flex-item" fxFlex="27" fxFlex.xs="25" *ngIf="!canEdit">
           <button (click)="vote('dec')" class="trsBtn">
             <i class="fa fa-minus" aria-hidden="true" style="color: red;"></i>
           </button>
         </div>
-        <div class="flex-item" fxFlex="19" fxFlex.xs="25" *ngIf="!isCheckDeadline">
+        <div class="flex-item" fxFlex="19" fxFlex.xs="25" *ngIf="!canEdit">
           <br/>
           <button class="trsBtn" (click)="displayReply()">
             <i class="fa fa-reply" aria-hidden="true" style="color: #0c08ff"></i>
           </button>
         </div>
-        <div class="flex-item" fxFlex="50" fxFlex.xs="33" *ngIf="isCheckDeadline">
-          {{criticism.vote}}
-        </div>
-        <div class="flex-item" fxFlex="25" fxFlex.xs="33" *ngIf="isCheckDeadline">
-          <button (click)="thank(true)" class="trsBtn">
-            <i class="fa fa-thumbs-o-up" aria-hidden="true" style="color: green;"></i>
-          </button>
-        </div>
-        <div class="flex-item" fxFlex="25" fxFlex.xs="33" *ngIf="isCheckDeadline">
-          <button (click)="thank(false)" class="trsBtn">
-            <i class="fa fa-thumbs-o-down" aria-hidden="true" style="color: red;"></i>
-          </button>
+        <div class="flex-item" fxFlex="50" fxFlex.xs="33" *ngIf="canEdit">
+          <md-button-toggle (change)="backwardToggle($event)" [checked]="criticism.isBackward" class="label">عقبگرد</md-button-toggle>
         </div>
       </div>
     </div>

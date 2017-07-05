@@ -4,7 +4,7 @@
       <md-card class="outerCard">
         <md-card-content>
           <div *ngIf="deadlineCriticisms !== null && deadlineCriticisms.length > 0">
-            <!--<app-criticism></app-criticism>-->
+            <app-reply *ngFor="let rp of deadlineCriticisms" [isReplying]="false" [reply]="rp" (action)="actionHandler($event)"></app-reply>
           </div>
           <div class="content" style="text-align: center; color: darkred;" *ngIf="deadlineCriticisms === null || deadlineCriticisms.length <= 0">
             در حال حاضر هیچ انتقادی مهلت تأیید اجرا شدن فرا نرسیده است

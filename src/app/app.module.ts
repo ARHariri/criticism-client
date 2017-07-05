@@ -31,6 +31,7 @@ import { UserCardComponent } from './Components/user-card/user-card.component';
 import {MessageService} from "./Services/message.service";
 import {CookieService} from "ng2-cookies";
 import {OrganService} from "./Services/organ.service";
+import {WebsocketService} from './Services/websocket.service';
 
 @NgModule({
   declarations: [
@@ -70,7 +71,7 @@ import {OrganService} from "./Services/organ.service";
       {path: 'login', component: LoginComponent}
     ])
   ],
-  providers: [AuthService, HttpService , WindowRef, CriticismService, MessageService, CookieService, OrganService],
+  providers: [AuthService, HttpService , WindowRef, CriticismService, MessageService, CookieService, OrganService, WebsocketService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

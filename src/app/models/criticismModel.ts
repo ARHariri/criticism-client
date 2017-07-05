@@ -11,6 +11,8 @@ export class CriticismModel{
   content: string;
   responsibleName: string;
   responsibleId: number;
+  isBackward: boolean;
+  backwardReason: string;
   vote: number;
 
   constructor(){}

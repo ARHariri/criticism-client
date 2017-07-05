@@ -1,22 +1,56 @@
-<md-tab-group>
-  <md-tab label="انتقادات">
+<md-tab-group (selectChange)="changeTab($event)" [selectedIndex]="0">
+  <md-tab label="انتقادات برتر">
     <md-sidenav-container class="home">
-      <md-sidenav #searchArea class="searchArea" align="start" style="min-width: 250px !important;" [style.height]="height">
+      <md-sidenav #searchAreaBest class="searchArea" align="start" style="min-width: 250px !important;" [style.height]="height">
         <app-search [kind]="'allCriticisms'" (filtering)="filterCriticisms($event)"></app-search>
       </md-sidenav>
       <div [style.height]="height">
-        <button md-button (click)="searchArea.open()" class="searchButtonArea">
+        <button md-button (click)="searchAreaBest.open()" class="searchButtonArea">
           <md-icon>filter_list</md-icon>
         </button>
         <div style="padding: 10px; margin: 10px;">
           <md-card class="outerCard">
-            <app-criticism *ngFor="let cr of filteredCriticisms" [isCheckDeadline]="false" [criticism]="cr" (action)="actionHandler($event, cr.id)"></app-criticism>
+            <app-criticism *ngFor="let cr of filteredCriticisms" [canEdit]="false" [criticism]="cr" (action)="actionHandler($event, cr.id)"></app-criticism>
           </md-card>
         </div>
       </div>
     </md-sidenav-container>
   </md-tab>
-  <md-tab label="نگارش">
+  <md-tab label="تمام انتقادات">
+    <md-sidenav-container class="home">
+      <md-sidenav #searchAreaAll class="searchArea" align="start" style="min-width: 250px !important;" [style.height]="height">
+        <app-search [kind]="'allCriticisms'" (filtering)="filterCriticisms($event)"></app-search>
+      </md-sidenav>
+      <div [style.height]="height">
+        <button md-button (click)="searchAreaAll.open()" class="searchButtonArea">
+          <md-icon>filter_list</md-icon>
+        </button>
+        <div style="padding: 10px; margin: 10px;">
+          <md-card class="outerCard">
+            <app-criticism *ngFor="let cr of filteredCriticisms" [canEdit]="false" [criticism]="cr" (action)="actionHandler($event, cr.id)"></app-criticism>
+          </md-card>
+        </div>
+      </div>
+    </md-sidenav-container>
+  </md-tab>
+  <md-tab label="انتقادات من" *ngIf="authService.isLoggedIn">
+    <md-sidenav-container class="home">
+      <md-sidenav #searchAreaMy class="searchArea" align="start" style="min-width: 250px !important;" [style.height]="height">
+        <app-search [kind]="'allCriticisms'" (filtering)="filterCriticisms($event)"></app-search>
+      </md-sidenav>
+      <div [style.height]="height">
+        <button md-button (click)="searchAreaMy.open()" class="searchButtonArea">
+          <md-icon>filter_list</md-icon>
+        </button>
+        <div style="padding: 10px; margin: 10px;">
+          <md-card class="outerCard">
+            <app-criticism *ngFor="let cr of filteredCriticisms" [canEdit]="true" [criticism]="cr" (action)="actionHandler($event, cr.id)"></app-criticism>
+          </md-card>
+        </div>
+      </div>
+    </md-sidenav-container>
+  </md-tab>
+  <md-tab label="نگارش" *ngIf="authService.isLoggedIn">
     <app-compose></app-compose>
   </md-tab>
 </md-tab-group>

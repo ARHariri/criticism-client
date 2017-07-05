@@ -4,6 +4,7 @@ import {MdDialog} from "@angular/material";
 import {ActionEnum} from "../../models/actionEnum";
 import {CriticismModel} from "../../models/criticismModel";
 import {ReplyShowComponent} from "../reply-show/reply-show.component";
+import {MessageService} from "../../Services/message.service";
 
 @Component({
   selector: 'app-criticism',
@@ -11,11 +12,11 @@ import {ReplyShowComponent} from "../reply-show/reply-show.component";
   styleUrls: ['./criticism.component.css']
 })
 export class CriticismComponent implements OnInit {
-  @Input() isCheckDeadline: boolean = false;
+  @Input() canEdit: boolean = false;
   @Input() criticism: CriticismModel;
   @Output() action = new EventEmitter();
 
-  constructor(public dialog: MdDialog) { }
+  constructor(public dialog: MdDialog, private msgServcie: MessageService) { }
 
   ngOnInit() {
   }
@@ -61,5 +62,20 @@ export class CriticismComponent implements OnInit {
       return tags.reduce((acc, el) => {
         return acc + ' - ' + el;
       });
+  }
+
+  backwardToggle(event){
+    this.criticism.isBackward = !this.criticism.isBackward;
+    console.log(event);
+    console.log(this.criticism.isBackward);
+
+    if(!this.criticism.isBackward) {
+      this.criticism.backwardReason = null;
+      this.sendBackward();
+    }
+  }
+
+  sendBackward(){
+    this.emitEvent(ActionEnum.backward, {is_backward: this.criticism.isBackward, backward_reason: this.criticism.backwardReason});
   }
 }

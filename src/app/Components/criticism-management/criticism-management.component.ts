@@ -4,6 +4,8 @@ import {CriticismService} from "../../Services/criticism.service";
 import {CriticismModel} from "../../models/criticismModel";
 import {WindowRef} from "../../Services/windowRef";
 import {ActionEnum} from "../../models/actionEnum";
+import {AuthService} from "../../Services/auth.service";
+import {MessageService} from "../../Services/message.service";
 
 @Component({
   selector: 'app-criticism-management',
@@ -14,7 +16,8 @@ export class CriticismManagementComponent implements OnInit {
   filteredCriticisms: CriticismModel[] = [];
   height: string;
 
-  constructor(private criticismService: CriticismService, private windowRef: WindowRef) { }
+  constructor(private criticismService: CriticismService, private windowRef: WindowRef,
+              private authService: AuthService, private msgService: MessageService) { }
 
   ngOnInit() {
     this.height = this.windowRef.getWindow().innerHeight + "px";
@@ -49,7 +52,11 @@ export class CriticismManagementComponent implements OnInit {
             break;
           case 'tags': {
             this.filteredCriticisms = this.filteredCriticisms.filter((el) => {
-              return el.tags.includes(filterOptions[prop]);
+              if(el.tags === null)
+                return false;
+              else{
+                return el.tags.find(i => i.includes(filterOptions[prop]));
+              }
             });
           }
             break;
@@ -89,6 +96,37 @@ export class CriticismManagementComponent implements OnInit {
           .catch(err => {
             this.criticismService.criticisms.getValue().find(el => el.id === id).vote++;
           });
+      }
+      break;
+      case ActionEnum.backward: {
+        this.criticismService.backWardCriticism(event.data, id)
+          .then(res => {
+            this.msgService.message('عقبگرد به خوبی ثبت شد');
+          })
+          .catch(err => {
+            this.msgService.error('در حال حاضر به ثبت عقبگرد نیستیم. دوباره تلاش کنید');
+          })
+      }
+      break;
+    }
+  }
+
+  changeTab(event){
+    switch (event.index){
+      case 0:{
+        this.criticismService.getAllCriticisms('top');
+      }
+      break;
+      case 1:{
+        this.criticismService.getAllCriticisms('all');
+      }
+      break;
+      case 2:{
+        this.criticismService.getAllCriticisms('user');
+      }
+      break;
+      case 3:{
+        this.criticismService.getSubjects();
       }
       break;
     }
