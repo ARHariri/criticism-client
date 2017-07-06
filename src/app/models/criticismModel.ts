@@ -12,6 +12,7 @@ export class CriticismModel{
   responsibleName: string;
   responsibleId: number;
   isBackward: boolean;
+  isReject: boolean;
   backwardReason: string;
   vote: number;
 

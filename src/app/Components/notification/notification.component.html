@@ -12,7 +12,7 @@
         </md-card-content>
       </md-card>
     </md-tab>
-    <md-tab label="انتقادات بدون پاسخ">
+    <md-tab label="انتقادات بدون پاسخ" *ngIf="access_level === 'پاسخگو'">
       <md-card class="outerCard">
         <md-card-content>
           <div *ngIf="notReplyCriticisms !== null && notReplyCriticisms.length > 0">

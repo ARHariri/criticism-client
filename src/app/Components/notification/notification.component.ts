@@ -4,6 +4,7 @@ import {CriticismService} from "../../Services/criticism.service";
 import {CriticismModel} from "../../models/criticismModel";
 import {MessageService} from "../../Services/message.service";
 import {ReplyModel} from "../../models/replyModel";
+import {AuthService} from "../../Services/auth.service";
 
 @Component({
   selector: 'app-notification',
@@ -13,10 +14,17 @@ import {ReplyModel} from "../../models/replyModel";
 export class NotificationComponent implements OnInit {
   notReplyCriticisms: CriticismModel[] = [];
   deadlineCriticisms: ReplyModel[] = [];
+  access_level: string = '';
 
-  constructor(private criticismService: CriticismService, private msgService: MessageService) { }
+  constructor(private criticismService: CriticismService, private msgService: MessageService,
+              private authService: AuthService) { }
 
   ngOnInit() {
+    this.authService.access_level.subscribe(
+      (data) => this.access_level = data,
+      (err) => console.log(err)
+    );
+
     this.criticismService.getAllNotReplyCriticisms()
       .then(res => {
         this.notReplyCriticisms = this.extractDataNotReply(res);

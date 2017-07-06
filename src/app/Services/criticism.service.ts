@@ -12,7 +12,7 @@ export class CriticismService {
   constructor(private httpService: HttpService) {
   }
 
-  getAllCriticisms(kind = 'all') {
+  getAllCriticisms(kind = 'top') {
     let address = 'criticism';
     switch (kind){
       case 'all': {}
@@ -38,6 +38,7 @@ export class CriticismService {
           value.content = item.content;
           value.isBackward = item.is_backward;
           value.backwardReason = item.backward_reason;
+          value.isReject = item.is_reject;
           value.vote = item.rank;
 
           tempCriticisms.push(value);

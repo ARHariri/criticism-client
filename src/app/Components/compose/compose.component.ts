@@ -67,8 +67,6 @@ export class ComposeComponent implements OnInit {
       },
       (err) => console.log(err)
     );
-
-    this.criticismService.getAllCriticisms('all');
   }
 
   filteringList(val: string, controlName: string){

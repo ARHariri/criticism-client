@@ -17,14 +17,22 @@
         </label>
         <label class="urlContent">{{concatTags(criticism.tags)}}</label>
       </div>
+      <div *ngIf="isReplying">
+        <md-radio-group [(ngModel)]="isReject">
+          <md-radio-button [value]="false" class="content">قبول انتقاد</md-radio-button>
+          <md-radio-button [value]="true" class="content">رد انتقاد</md-radio-button>
+        </md-radio-group>
+      </div>
       <form [formGroup]="replyForm" (ngSubmit)="sendReply()">
         <div>
         <textarea class="content" placeholder="پاسخ شما" formControlName="replyContent"
-                  rows="10"></textarea>
+                  rows="10" *ngIf="!isReject"></textarea>
+        <textarea class="content" placeholder="علت رد" formControlName="replyContent"
+                  rows="10" *ngIf="isReject"></textarea>
         </div>
         <br/>
         <br/>
-        <div>
+        <div *ngIf="!isReject">
           <label class="label">تاریخ مهلت اجرا</label>
           <md-select placeholder="سال" formControlName="deadline_year">
             <md-option *ngFor="let year of years" [value]="year">{{year}}</md-option>

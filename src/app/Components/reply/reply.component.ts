@@ -17,6 +17,7 @@ export class ReplyComponent implements OnInit {
   @Input() reply: ReplyModel;
   @Input() criticism: CriticismModel;
   @Output() action = new EventEmitter();
+  isReject: boolean = false;
   replyForm: FormGroup;
   years: any = [];
   months: any = ['فروردین', 'اردیبهشت', 'خرداد', 'تیر', 'مرداد', 'شهریور', 'مهر', 'آبان' , 'آذر', 'دی', 'بهمن', 'اسفند'];
@@ -60,7 +61,7 @@ export class ReplyComponent implements OnInit {
       day: parseInt(this.replyForm.controls['deadline_day'].value)
     };
 
-    if(!this.isFirstLess(fDate, sDate)){
+    if(!this.isReject && !this.isFirstLess(fDate, sDate)){
       this.msgService.error('کوچک ترین مقدار برای تاریخ انتخاب شده می تواند یک روز بعد باشد');
     }
     else{
@@ -71,7 +72,8 @@ export class ReplyComponent implements OnInit {
           content: this.replyForm.controls['replyContent'].value,
           deadline_date: this.replyForm.controls['deadline_year'].value + '-' +
                          parseInt(this.months.indexOf(this.replyForm.controls['deadline_month'].value) + 1) + '-' +
-                         this.replyForm.controls['deadline_day'].value
+                         this.replyForm.controls['deadline_day'].value,
+          is_reject: this.isReject
         }
       };
       this.action.emit(obj);

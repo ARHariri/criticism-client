@@ -126,3 +126,11 @@ textarea{
   font-size: 0.8em !important;
   background-color: red !important;
 }
+
+.mat-radio-inner-circle{
+  background-color: #7671ff;
+}
+
+.mat-radio-checked .mat-radio-outer-circle{
+  border-color: #7671ff;
+}

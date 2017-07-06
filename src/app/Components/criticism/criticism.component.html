@@ -1,4 +1,4 @@
-<md-card style="margin: 3px;" [class.is-backward]="criticism.isBackward">
+<md-card style="margin: 3px;" [class.is-backward]="criticism.isBackward" [class.is-reject]="criticism.isReject">
   <div class="content" style="margin-right: 40px;">
     {{criticism.subject}}
   </div>
@@ -36,15 +36,22 @@
     </div>
     <div class="flex-item" fxFlex="15" fxFlex.xs="15">
       <div class="flex-container" fxLayout="column" fxLayout.xs="column" fxLayoutAlign="center center" fxLayoutAlign.xs="center center">
-        <div class="flex-item" fxFlex="27" fxFlex.xs="25" *ngIf="!canEdit && !criticism.isBackward">
+        <div class="flex-item" fxFlex="27" fxFlex.xs="25" *ngIf="!canEdit && !criticism.isBackward && !criticism.isReject">
           <button (click)="vote('inc')" class="trsBtn">
             <i class="fa fa-plus" aria-hidden="true" style="color: green;"></i>
           </button>
         </div>
+        <div class="flex-item" fxFlex="27" fxFlex.xs="25" *ngIf="!canEdit && criticism.
+        isBackward">
+          <i class="material-icons" style="color: red">call_missed</i>
+        </div>
+        <div class="flex-item" fxFlex="27" fxFlex.xs="25" *ngIf="!canEdit && criticism.isReject">
+          <i class="material-icons" style="color: red">remove_circle_outline</i>
+        </div>
         <div class="flex-item" fxFlex="27" fxFlex.xs="25" *ngIf="!canEdit">
           {{criticism.vote}}
         </div>
-        <div class="flex-item" fxFlex="27" fxFlex.xs="25" *ngIf="!canEdit && !criticism.isBackward">
+        <div class="flex-item" fxFlex="27" fxFlex.xs="25" *ngIf="!canEdit && !criticism.isBackward  && !criticism.isReject">
           <button (click)="vote('dec')" class="trsBtn">
             <i class="fa fa-minus" aria-hidden="true" style="color: red;"></i>
           </button>

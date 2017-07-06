@@ -41,7 +41,7 @@ export class CriticismManagementComponent implements OnInit {
         }
     );
 
-    this.criticismService.getAllCriticisms();
+    this.criticismService.getAllCriticisms('top');
   }
 
   filterCriticisms(filterOptions){
@@ -132,6 +132,7 @@ export class CriticismManagementComponent implements OnInit {
       }
       break;
       case 3:{
+        this.criticismService.getAllCriticisms('all');
         this.criticismService.getSubjects();
       }
       break;
