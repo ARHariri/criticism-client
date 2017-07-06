@@ -36,7 +36,7 @@
     </div>
     <div class="flex-item" fxFlex="15" fxFlex.xs="15">
       <div class="flex-container" fxLayout="column" fxLayout.xs="column" fxLayoutAlign="center center" fxLayoutAlign.xs="center center">
-        <div class="flex-item" fxFlex="27" fxFlex.xs="25" *ngIf="!canEdit">
+        <div class="flex-item" fxFlex="27" fxFlex.xs="25" *ngIf="!canEdit && !criticism.isBackward">
           <button (click)="vote('inc')" class="trsBtn">
             <i class="fa fa-plus" aria-hidden="true" style="color: green;"></i>
           </button>
@@ -44,7 +44,7 @@
         <div class="flex-item" fxFlex="27" fxFlex.xs="25" *ngIf="!canEdit">
           {{criticism.vote}}
         </div>
-        <div class="flex-item" fxFlex="27" fxFlex.xs="25" *ngIf="!canEdit">
+        <div class="flex-item" fxFlex="27" fxFlex.xs="25" *ngIf="!canEdit && !criticism.isBackward">
           <button (click)="vote('dec')" class="trsBtn">
             <i class="fa fa-minus" aria-hidden="true" style="color: red;"></i>
           </button>

@@ -33,7 +33,7 @@
       </div>
     </md-sidenav-container>
   </md-tab>
-  <md-tab label="انتقادات من" *ngIf="authService.isLoggedIn">
+  <md-tab label="انتقادات من" *ngIf="isLoggedIn">
     <md-sidenav-container class="home">
       <md-sidenav #searchAreaMy class="searchArea" align="start" style="min-width: 250px !important;" [style.height]="height">
         <app-search [kind]="'allCriticisms'" (filtering)="filterCriticisms($event)"></app-search>
@@ -50,7 +50,7 @@
       </div>
     </md-sidenav-container>
   </md-tab>
-  <md-tab label="نگارش" *ngIf="authService.isLoggedIn">
+  <md-tab label="نگارش" *ngIf="isLoggedIn">
     <app-compose></app-compose>
   </md-tab>
 </md-tab-group>

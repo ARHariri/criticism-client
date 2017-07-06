@@ -14,6 +14,7 @@ import {MessageService} from "../../Services/message.service";
 })
 export class CriticismManagementComponent implements OnInit {
   filteredCriticisms: CriticismModel[] = [];
+  isLoggedIn: boolean = false;
   height: string;
 
   constructor(private criticismService: CriticismService, private windowRef: WindowRef,
@@ -24,6 +25,11 @@ export class CriticismManagementComponent implements OnInit {
     this.windowRef.getWindow().onresize = (e) => {
       this.height = this.windowRef.getWindow().innerHeight + "px";
     };
+
+    this.authService.isLoggedIn.subscribe(
+      (data) => this.isLoggedIn = data,
+      (err) => console.log(err)
+    );
 
     this.criticismService.criticisms.subscribe(
         (data) => {

@@ -11,6 +11,7 @@ import {LoginComponent} from "../login/login.component";
 })
 export class NavbarComponent implements OnInit {
   userName: string = '';
+  accessLevel: string = '';
   isLoggedIn: boolean = false;
 
   constructor(public authService: AuthService, public dialog: MdDialog) { }
@@ -18,6 +19,16 @@ export class NavbarComponent implements OnInit {
   ngOnInit() {
     this.authService.isLoggedIn.subscribe(
       (data) => this.isLoggedIn = data,
+      (err) => console.log(err)
+    );
+
+    this.authService.name.subscribe(
+      (data) => this.userName = data,
+      (err) => console.log(err)
+    );
+
+    this.authService.access_level.subscribe(
+      (data) => this.accessLevel = data,
       (err) => console.log(err)
     );
 

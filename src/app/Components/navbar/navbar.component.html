@@ -5,7 +5,7 @@
       {{userName}}
     </a>
     <md-menu #userMenu="mdMenu">
-      <a md-menu-item class="title link subLink" style="direction: rtl;" [routerLink]="['profile']">پروفایل</a>
+      <!--<a md-menu-item class="title link subLink" style="direction: rtl;" [routerLink]="['profile']">پروفایل</a>-->
       <a md-menu-item class="title link subLink" style="direction: rtl;" (click)="logout()">خروج</a>
     </md-menu>
   </span>
@@ -21,7 +21,7 @@
   <span>
     <a class="title link" md-tab-link [routerLink]="['criticism']">انتقادات</a>
   </span>
-  <span *ngIf="authService.access_level.getValue() === 'مدیر'">
+  <span *ngIf="accessLevel === 'مدیر'">
     <a class="title link" md-tab-link [routerLink]="['organ']">سازمان</a>
   </span>
   <span class="fill-remaining-space"></span>

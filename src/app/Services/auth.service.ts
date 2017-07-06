@@ -10,6 +10,7 @@ export class AuthService implements CanActivate{
   userName: BehaviorSubject<string> = new BehaviorSubject('');
   access_level: BehaviorSubject<string> = new BehaviorSubject('عادی');
   isLoggedIn: BehaviorSubject<boolean> = new BehaviorSubject(false);
+  email: BehaviorSubject<string> = new BehaviorSubject('');
 
   constructor(private router: Router, private httpService: HttpService,
               private cookieService: CookieService) {
@@ -47,9 +48,14 @@ export class AuthService implements CanActivate{
   login(username: string, password: string){
     this.httpService.update('login', null, {username: username, password: password}).subscribe(
       (data) => {
-        this.cookieService.set('token', data.json(), 3);
-        this.cookieService.set('criticism_username', username, 3);
+        let dataObj = data.json();
+        this.cookieService.set('token', dataObj.token, 3);
+        this.cookieService.set('criticism_username', dataObj.username, 3);
         this.isLoggedIn.next(true);
+        this.name.next(dataObj.name);
+        this.userName.next(dataObj.username);
+        this.access_level.next(dataObj.access_level);
+        this.email.next(dataObj.email);
       },
       (err) => console.log('The username or password is incorrect')
     );
