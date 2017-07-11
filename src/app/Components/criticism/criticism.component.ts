@@ -5,6 +5,7 @@ import {ActionEnum} from "../../models/actionEnum";
 import {CriticismModel} from "../../models/criticismModel";
 import {ReplyShowComponent} from "../reply-show/reply-show.component";
 import {MessageService} from "../../Services/message.service";
+import {AuthService} from "../../Services/auth.service";
 
 @Component({
   selector: 'app-criticism',
@@ -16,7 +17,8 @@ export class CriticismComponent implements OnInit {
   @Input() criticism: CriticismModel;
   @Output() action = new EventEmitter();
 
-  constructor(public dialog: MdDialog, private msgServcie: MessageService) { }
+  constructor(public dialog: MdDialog, private msgServcie: MessageService,
+              private authService: AuthService) { }
 
   ngOnInit() {
   }
@@ -24,13 +26,21 @@ export class CriticismComponent implements OnInit {
   vote(value: string){
     switch (value){
       case 'inc':{
-        this.criticism.vote += 1;
-        this.emitEvent(ActionEnum.addVote, 1);
+        if(this.authService.isLoggedIn.getValue()){
+          this.criticism.vote += 1;
+          this.emitEvent(ActionEnum.addVote, 1);
+        }
+        else
+          this.msgServcie.warn('برای ثبت رأی باید وارد شوید');
       }
       break;
       case 'dec':{
-        this.criticism.vote -= 1;
-        this.emitEvent(ActionEnum.subVote, 1);
+        if(this.authService.isLoggedIn.getValue()) {
+          this.criticism.vote -= 1;
+          this.emitEvent(ActionEnum.subVote, 1);
+        }
+        else
+          this.msgServcie.warn('برای ثبت رأی باید وارد شوید');
       }
       break;
     }

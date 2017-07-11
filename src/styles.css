@@ -118,7 +118,8 @@ textarea{
 .warn-message{
   font-family: 'BYekan' !important;
   font-size: 0.8em !important;
-  background-color: yellow !important;
+  background-color: #fae772 !important;
+  color: black !important;
 }
 
 .error-message{
@@ -133,4 +134,12 @@ textarea{
 
 .mat-radio-checked .mat-radio-outer-circle{
   border-color: #7671ff;
+}
+
+.mat-input-placeholder-wrapper{
+  overflow: visible !important;
+}
+
+.mat-autocomplete-panel {
+  max-width: none !important;
 }

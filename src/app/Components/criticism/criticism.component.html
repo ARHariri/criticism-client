@@ -63,7 +63,10 @@
           </button>
         </div>
         <div class="flex-item" fxFlex="50" fxFlex.xs="33" *ngIf="canEdit">
-          <md-button-toggle (change)="backwardToggle($event)" [checked]="criticism.isBackward" class="label">عقبگرد</md-button-toggle>
+          <md-button-toggle (change)="backwardToggle($event)" [checked]="criticism.isBackward" class="label">
+            <label *ngIf="!criticism.isBackward">عقبگرد</label>
+            <label *ngIf="criticism.isBackward">بازگشت</label>
+          </md-button-toggle>
         </div>
       </div>
     </div>

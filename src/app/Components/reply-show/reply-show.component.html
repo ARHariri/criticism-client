@@ -15,7 +15,7 @@
         <br/>
         <hr/>
         <div class="content" style="text-indent: 7px;">{{reply.content}}</div>
-        <div>
+        <div *ngIf="!reply.criticism_is_reject">
           <label class="label">زمان تأیید اجرا:</label>
           <label class="content">{{reply.deadline}}</label>
         </div>

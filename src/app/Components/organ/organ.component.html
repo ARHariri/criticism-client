@@ -8,21 +8,21 @@
               <md-card-title>تعریف کاربر</md-card-title>
               <md-card-content>
                 <form [formGroup]="userForm" (ngSubmit)="addUser()">
-                  <md-input-container>
+                  <md-input-container style="width: 30%">
                     <input mdInput type="text" placeholder="نام" formControlName="name">
                   </md-input-container>
                   <br/>
-                  <md-input-container>
+                  <md-input-container style="width: 30%">
                     <input mdInput type="text" placeholder="نام کاربری" formControlName="username">
                   </md-input-container>
                   <label class="label" style="font-size: 0.7em">حداقل دارای 5 کاراکتر</label>
                   <br/>
-                  <md-input-container>
+                  <md-input-container style="width: 30%">
                     <input mdInput type="email" placeholder="ایمیل" formControlName="email">
                   </md-input-container>
                   <br/>
                   <div>
-                    <md-select formControlName="accessLevel" style="direction: rtl; float: right;">
+                    <md-select formControlName="accessLevel" style="direction: rtl; float: right; width: 30%;" placeholder="سطح دسترسی">
                       <md-option style="direction: rtl" *ngFor="let item of accessLevels" [value]="item">{{item}}</md-option>
                     </md-select>
                   </div>
@@ -77,15 +77,15 @@
               <md-card-title>تعریف بخش</md-card-title>
               <md-card-content>
                 <form [formGroup]="partForm">
-                  <md-input-container>
+                  <md-input-container style="width: 30%">
                     <input mdInput type="text" placeholder="نام بخش" formControlName="name">
                   </md-input-container>
                   <br/>
-                  <md-select formControlName="responsibleId" placeholder="مسئول پاسخگو">
+                  <md-select formControlName="responsibleId" placeholder="مسئول پاسخگو" style="width: 30%">
                     <md-option *ngFor="let item of responsibleUsers" [value]="item.id">{{item.name}} - {{item.username}}</md-option>
                   </md-select>
                   <br/>
-                  <md-input-container>
+                  <md-input-container style="width: 30%;">
                     <input mdInput type="text" placeholder="نام بخش پدر" formControlName="parentName">
                   </md-input-container>
                   <br/>

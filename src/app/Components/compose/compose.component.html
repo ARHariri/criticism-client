@@ -9,14 +9,14 @@
               <md-input-container style="width: 100%;">
                 <input mdInput placeholder="عنوان" [mdAutocomplete]="autoTitle" formControlName="subject" (focus)="showList('subject')">
               </md-input-container>
-              <md-autocomplete #autoTitle="mdAutocomplete">
-                <md-option *ngFor="let subject of filteredSubjects | async" [value]="subject" style="text-align: right" class="label">
+              <md-autocomplete #autoTitle="mdAutocomplete" style="width: 300px;">
+                <md-option *ngFor="let subject of filteredSubjects | async" [value]="subject" style="text-align: right;" class="label">
                   {{ subject }}
                 </md-option>
               </md-autocomplete>
             </div>
             <div>
-              <textarea class="content" rows="10" placeholder="محتوا" formControlName="content" (change)="getSimilarCriticisms()"></textarea>
+              <textarea class="content" rows="10" placeholder="محتوا" formControlName="content" [(ngModel)]="content" (ngModelChange)="getSimilarCriticisms()"></textarea>
             </div>
             <div>
               <md-input-container style="width: 100%;">

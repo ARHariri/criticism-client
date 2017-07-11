@@ -91,6 +91,7 @@ export class CriticismManagementComponent implements OnInit {
           })
           .catch(err => {
             this.criticismService.criticisms.getValue().find(el => el.id === id).vote--;
+            this.msgService.message('شما نمی توانید دو رأی یکسان به یک انتقاد دهید');
           })
       }
       break;
@@ -101,6 +102,7 @@ export class CriticismManagementComponent implements OnInit {
           })
           .catch(err => {
             this.criticismService.criticisms.getValue().find(el => el.id === id).vote++;
+            this.msgService.message('شما نمی توانید دو رأی یکسان به یک انتقاد دهید');
           });
       }
       break;

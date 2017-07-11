@@ -22,6 +22,7 @@ export class ComposeComponent implements OnInit {
   contentWordExtracted: any[] = [];
   ignoredWord: any = ['با', 'از', 'است', 'می باشد', 'میباشد', 'شد', 'شاید', 'باید', 'هست', 'نیست', 'و',
                       'اگر', 'طور', 'این', 'اینطور', 'به', 'برای', 'همین', 'تا', 'کجا'];
+  content: string = '';
 
   constructor(private criticismService: CriticismService, private organService: OrganService) { }
 
@@ -128,9 +129,9 @@ export class ComposeComponent implements OnInit {
 
     similarPercent = similarPercent.sort((a, b) => {
       if(a.value > b.value)
-        return 1;
-      else if(a.value < b.value)
         return -1;
+      else if(a.value < b.value)
+        return 1;
       else
         return 0;
     }).slice(0, 11).filter(el => el.value !== 0);

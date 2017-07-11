@@ -9,6 +9,7 @@ export class ReplyModel{
   criticism_date: Date;
   criticism_tags: string[];
   criticism_is_backward: boolean;
+  criticism_is_reject: boolean;
   criticism_part: string;
   criticism_rank: number;
   replier_part: string;

@@ -14,8 +14,7 @@ export class AppComponent implements OnInit{
   height;
   ws: Subject<any>;
 
-  constructor(private authService: AuthService, private windowRef: WindowRef,
-              private websocketService: WebsocketService){}
+  constructor(private authService: AuthService, private windowRef: WindowRef){}
 
   ngOnInit(){
     this.height = this.windowRef.getWindow().innerHeight;
